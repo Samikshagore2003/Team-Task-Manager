@@ -15,7 +15,7 @@ app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY', 'jwt-secret-key'
 db = SQLAlchemy(app)
 jwt = JWTManager(app)
 
-# ---------------- MODELS ----------------
+#  MODELS 
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -45,7 +45,7 @@ class Task(db.Model):
     due_date = db.Column(db.String(20))
 
 
-# ---------------- PAGES ----------------
+#  PAGES 
 
 @app.route('/')
 def home():
@@ -64,7 +64,7 @@ def projects_page():
     return render_template('project.html')
 
 
-# ---------------- AUTH ----------------
+#  AUTH 
 
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -99,7 +99,7 @@ def login():
     return jsonify({'token': token})
 
 
-# ---------------- PROJECT ----------------
+#  PROJECT 
 
 @app.route('/projects', methods=['POST'])
 @jwt_required()
@@ -115,7 +115,7 @@ def create_project():
     db.session.add(project)
     db.session.commit()
 
-    # 🔥 CREATOR = ADMIN
+    #  CREATOR = ADMIN
     db.session.add(ProjectMember(
         user_id=user_id,
         project_id=project.id,
@@ -139,7 +139,7 @@ def get_projects():
     return jsonify(result)
 
 
-# ---------------- MEMBERS ----------------
+#  MEMBERS 
 
 @app.route('/add-member', methods=['POST'])
 @jwt_required()
@@ -208,7 +208,7 @@ def get_members(project_id):
     return jsonify(result)
 
 
-# ---------------- TASK ----------------
+#  TASK 
 
 @app.route('/tasks', methods=['POST'])
 @jwt_required()
@@ -222,11 +222,11 @@ def create_task():
     assigned_to = data.get('assigned_to')
     due_date = data.get('due_date')
 
-    # ---------------- VALIDATION ----------------
+    #  VALIDATION 
     if not title or not project_id:
         return jsonify({'message': 'Title and project_id required'}), 400
 
-    # ---------------- ADMIN CHECK ----------------
+    #  ADMIN CHECK 
     admin = ProjectMember.query.filter_by(
         user_id=user_id,
         project_id=project_id,
@@ -236,7 +236,7 @@ def create_task():
     if not admin:
         return jsonify({'message': 'Only admin can create/assign tasks'}), 403
 
-    # ---------------- ASSIGNED USER CHECK ----------------
+    #  ASSIGNED USER CHECK 
     if assigned_to:
         assigned_to = int(assigned_to)
 
@@ -248,7 +248,7 @@ def create_task():
         if not member:
             return jsonify({'message': 'User is not part of this project'}), 400
 
-    # ---------------- CREATE TASK ----------------
+    #  CREATE TASK 
     new_task = Task(
         title=title,
         description=description,
@@ -269,7 +269,7 @@ def create_task():
 def get_tasks(project_id):
     user_id = int(get_jwt_identity())
 
-    # 🔥 check role
+    #  check role
     member = ProjectMember.query.filter_by(
         user_id=user_id,
         project_id=project_id
@@ -281,11 +281,11 @@ def get_tasks(project_id):
 
     for t in tasks:
 
-        # 🔥 ADMIN → sab dekhe
+        #  ADMIN → sab dekhe
         if member and member.role == 'admin':
             pass
 
-        # 🔥 MEMBER → sirf assigned
+        #  MEMBER → sirf assigned
         else:
             if t.assigned_to != user_id:
                 continue
@@ -318,7 +318,7 @@ def update_task(id):
 
     status = data.get('status')
 
-    # ✅ Validate status
+    #  Validate status
     if status not in ['To Do', 'In Progress', 'Done']:
         return jsonify({'message': 'Invalid status'}), 400
 
@@ -339,7 +339,7 @@ def delete_task(task_id):
     return jsonify({'message': 'Deleted'})
 
 
-# ---------------- RUN ----------------
+#  RUN 
 
 if __name__ == '__main__':
     with app.app_context():

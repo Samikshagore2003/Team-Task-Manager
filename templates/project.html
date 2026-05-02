@@ -89,12 +89,12 @@
     let selectedProjectId = null;
     let isAdmin = false;
 
-    // ---------------- JWT ----------------
+    //  JWT 
     function parseJwt(token) {
         return JSON.parse(atob(token.split('.')[1]));
     }
 
-    // ---------------- PROJECT ----------------
+    //  PROJECT 
 
     // LOAD PROJECTS
     async function loadProjects() {
@@ -154,7 +154,7 @@
         selectedLi.classList.add("active");
     }
 
-    // ---------------- TASK ----------------
+    //  TASK 
 
     // LOAD TASKS
     async function loadTasks(projectId) {
@@ -286,7 +286,7 @@ ${isAdmin ? `<button onclick="deleteTask(${t.id})">Delete</button>` : ""}       
         loadTasks(selectedProjectId);
     }
 
-    // ---------------- MEMBERS ----------------
+    //  MEMBERS 
 
     // ADD MEMBER
     document.getElementById("memberForm").addEventListener("submit", async (e) => {
@@ -381,7 +381,7 @@ ${isAdmin ? `<button onclick="deleteTask(${t.id})">Delete</button>` : ""}       
         });
     }
 
-    // ---------------- ROLE ----------------
+    //  ROLE 
 
     async function checkRole(projectId) {
     const res = await fetch(`/members/${projectId}`, {
@@ -422,7 +422,7 @@ ${isAdmin ? `<button onclick="deleteTask(${t.id})">Delete</button>` : ""}       
     document.getElementById("taskForm").style.display =
         isAdmin ? "block" : "none";
 }
-    // ---------------- LOGOUT ----------------
+    //  LOGOUT 
 
     function logout() {
         localStorage.clear();
@@ -437,7 +437,7 @@ ${isAdmin ? `<button onclick="deleteTask(${t.id})">Delete</button>` : ""}       
         // TASK FORM (create)
         document.getElementById("taskForm").style.display = isAdmin ? "block" : "none";
     }
-    // ---------------- INIT ----------------
+    //  INIT 
     loadProjects();
 </script>
 

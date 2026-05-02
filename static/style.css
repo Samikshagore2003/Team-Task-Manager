@@ -53,7 +53,7 @@ a:hover {
     text-decoration: underline;
 }
 
-/* -------- DASHBOARD (Project Page Only) -------- */
+/*  DASHBOARD (Project Page Only)  */
 .main {
     display: flex;
     gap: 30px;
@@ -73,7 +73,7 @@ a:hover {
     margin-bottom: 12px;
 }
 
-/* scoped inputs/buttons (sirf card ke andar) */
+/* scoped inputs/buttons  */
 .card input {
     width: 100%;
     padding: 10px;
@@ -501,14 +501,14 @@ button:hover {
     background: #dc2626;
 }
 
-/* ===== BASE ===== */
+/* BASE */
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
     background: #f1f5f9;
 }
 
-/* ===== LAYOUT ===== */
+/*  LAYOUT  */
 .app {
     display: flex;
     height: 100vh;
