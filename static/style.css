@@ -1,0 +1,678 @@
+/* -------- BASE (Login/Signup ke liye) -------- */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f6f8;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 360px;
+    margin: 100px auto;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1,
+h2 {
+    margin-bottom: 15px;
+}
+
+.container input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.container button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.container button:hover {
+    background: #1d4ed8;
+}
+
+a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* -------- DASHBOARD (Project Page Only) -------- */
+.main {
+    display: flex;
+    gap: 30px;
+    padding: 40px;
+    justify-content: center;
+}
+
+.card {
+    width: 420px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+    margin-bottom: 12px;
+}
+
+/* scoped inputs/buttons (sirf card ke andar) */
+.card input {
+    width: 100%;
+    padding: 10px;
+    margin: 6px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.card button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.card button:hover {
+    background: #1d4ed8;
+}
+
+/* list */
+.card ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+/* project items */
+#projectList li {
+    padding: 10px;
+    margin: 6px 0;
+    background: #f1f5f9;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#projectList li.active {
+    background: #c7d2fe;
+}
+
+/* task items */
+#taskList li {
+    padding: 10px;
+    margin: 8px 0;
+    background: #f8fafc;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* task buttons */
+.task-actions button {
+    width: auto;
+    padding: 4px 8px;
+    margin-left: 5px;
+    font-size: 12px;
+}
+
+
+/* FIX TASK LAYOUT */
+.task-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.task-title {
+    font-weight: 600;
+}
+
+.task-status {
+    font-size: 12px;
+    color: gray;
+}
+
+/* fix button alignment */
+.task-actions {
+    display: flex;
+    gap: 8px;
+}
+
+
+
+/* NAVBAR */
+.navbar {
+    width: 220px;
+    height: 100vh;
+    background: #2563eb;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.navbar h2 {
+    margin: 0;
+}
+
+.navbar button {
+    width: auto;
+    padding: 6px 12px;
+    background: white;
+    color: #2563eb;
+    font-weight: 500;
+}
+
+/* BODY CENTER */
+.main {
+    margin-left: 240px;
+    /* sidebar ke hisab se */
+    display: flex;
+    gap: 30px;
+    padding: 30px;
+}
+
+/* CARD IMPROVEMENT */
+.card {
+    width: 420px;
+    background: white;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+/* PROJECT HOVER */
+#projectList li:hover {
+    background: #e0e7ff;
+}
+
+/* TASK STYLE */
+.task-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-title {
+    font-weight: 600;
+}
+
+.task-status {
+    font-size: 12px;
+    color: gray;
+}
+
+/* BUTTON IMPROVE */
+button {
+    transition: 0.2s;
+}
+
+button:hover {
+    transform: scale(1.03);
+}
+
+.navbar button {
+    width: 100%;
+    padding: 8px;
+    background: white;
+    color: #2563eb;
+    border-radius: 6px;
+    border: none;
+}
+
+/* MEMBER SECTION */
+.member-section {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #e5e7eb;
+}
+
+/* HEADER */
+.member-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.member-header h3 {
+    margin: 0;
+}
+
+/* FORM */
+.member-form {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+/* INPUT */
+.member-form input {
+    flex: 1;
+    padding: 8px;
+    font-size: 14px;
+}
+
+/* BUTTON */
+.member-form button {
+    width: auto;
+    padding: 8px 14px;
+    font-size: 14px;
+    background: #2563eb;
+}
+
+/* MEMBER LIST */
+#memberList li {
+    padding: 10px;
+    margin-top: 8px;
+    background: #f8fafc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* NAME */
+.member-name {
+    font-weight: 600;
+}
+
+/* ROLE */
+.member-role {
+    font-size: 12px;
+    color: gray;
+}
+.stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 500;
+}
+.task-date {
+    font-size: 12px;
+    color: gray;
+}
+
+.stats {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.stat-box {
+    flex: 1;
+    background: #f1f5f9;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.stat-box h3 {
+    margin: 5px 0 0;
+}
+.task-actions button {
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 5px;
+}
+
+.member-section {
+    width: 300px;
+}
+
+.member-input {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.member-input input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.member-input button {
+    padding: 10px 14px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.member-input button:hover {
+    background: #1d4ed8;
+}
+
+/* MEMBER CARD */
+#memberList li {
+    background: #f8fafc;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    list-style: none;
+}
+
+.member-name {
+    font-weight: 600;
+}
+
+.member-email {
+    font-size: 12px;
+    color: gray;
+}
+
+.member-role {
+    font-size: 11px;
+    color: #2563eb;
+}
+
+/* MEMBERS CARD */
+.members-card {
+    width: 300px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+/* FORM */
+.member-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.member-form input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+.member-form button {
+    padding: 10px 14px;
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.member-form button:hover {
+    opacity: 0.9;
+}
+
+/* MEMBER CARD */
+.member-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.member-item:hover {
+    transform: translateY(-2px);
+}
+
+/* LEFT INFO */
+.member-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.member-name {
+    font-weight: 600;
+}
+
+.member-email {
+    font-size: 12px;
+    color: gray;
+}
+
+/* ROLE TAG */
+.role-badge {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-top: 4px;
+}
+
+.admin {
+    background: #fde68a;
+    color: #92400e;
+}
+
+.member {
+    background: #e0e7ff;
+    color: #3730a3;
+}
+
+/* REMOVE BUTTON */
+.remove-btn {
+    width: auto !important;    
+    padding: 6px 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    border-radius: 6px;
+}
+
+.remove-btn:hover {
+    background: #dc2626;
+}
+
+/* ===== BASE ===== */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #f1f5f9;
+}
+
+/* ===== LAYOUT ===== */
+.app {
+    display: flex;
+    height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 240px;
+    background: linear-gradient(180deg, #2563eb, #1e3a8a);
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.user-box {
+    text-align: center;
+}
+
+.user-box button {
+    margin-top: 10px;
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    background: white;
+    color: #2563eb;
+    cursor: pointer;
+}
+
+/* MAIN */
+.main-content {
+    flex: 1;
+    padding: 20px 30px;
+}
+
+.topbar {
+    margin-bottom: 20px;
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    gap: 20px;
+}
+
+/* CARD */
+.card {
+    background: white;
+    padding: 18px;
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* FORMS */
+.form-row, .task-form {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.task-form {
+    flex-direction: column;
+}
+
+input, select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+/* BUTTON */
+button {
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* PROJECT LIST */
+#projectList li {
+    background: #f8fafc;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    cursor: pointer;
+}
+
+#projectList li.active {
+    background: #c7d2fe;
+}
+
+/* TASK */
+.task-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 10px;
+    background: #f8fafc;
+    margin-bottom: 8px;
+}
+
+.task-title {
+    font-weight: 600;
+}
+
+.task-status {
+    font-size: 12px;
+}
+
+/* STATS */
+.stats {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.stats div {
+    flex: 1;
+    background: #eef2ff;
+    padding: 8px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* MEMBERS */
+.member-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 10px;
+    background: #f8fafc;
+    margin-bottom: 8px;
+}
+
+.role-badge {
+    display: inline-block;
+    width: fit-content;
+}
+
+.admin {
+    background: #fde68a;
+}
+
+.member {
+    background: #e0e7ff;
+}
+
+/* REMOVE BUTTON */
+.remove-btn {
+    background: #ef4444;
+    padding: 5px 8px;
+    font-size: 12px;
+}
