@@ -302,20 +302,30 @@ def get_tasks(project_id):
 
     return jsonify(result)
 
-@app.route('/tasks/<int:task_id>', methods=['PUT'])
+@app.route('/tasks/<int:id>', methods=['PUT'])
 @jwt_required()
-def update_task(task_id):
-    data = request.get_json()
+def update_task(id):
+
+    task = Task.query.get(id)
 
     if not task:
         return jsonify({'message': 'Task not found'}), 404
 
-    task = Task.query.get(task_id)
-    task.status = data['status']
+    data = request.get_json()
 
+    if not data:
+        return jsonify({'message': 'No data provided'}), 400
+
+    status = data.get('status')
+
+    # ✅ Validate status
+    if status not in ['To Do', 'In Progress', 'Done']:
+        return jsonify({'message': 'Invalid status'}), 400
+
+    task.status = status
     db.session.commit()
 
-    return jsonify({'message': 'Updated'})
+    return jsonify({'message': 'Task updated successfully'}), 200
 
 
 @app.route('/tasks/<int:task_id>', methods=['DELETE'])
