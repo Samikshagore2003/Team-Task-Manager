@@ -108,31 +108,41 @@
         <p>Already have an account? <a href="/login-page">Login</a></p>
     </div>
 
-    <script>
-        document.getElementById("signupForm").addEventListener("submit", async function (e) {
-            e.preventDefault();
+       <script>
 
-            const data = {
-                name: document.getElementById("name").value,
-                email: document.getElementById("email").value,
-                password: document.getElementById("password").value
-            };
+const API = "https://team-task-manager-eu2p.onrender.com";  
 
-            const res = await fetch("/signup", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
-            });
+document.getElementById("signupForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-            const result = await res.json();
+    const data = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value
+    };
 
-            alert(result.message);
-
-            if (res.status === 201) {
-                window.location.href = "/login-page";
-            }
+    try {
+        const res = await fetch(`${API}/signup`, {   
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
         });
-    </script>
+
+        const result = await res.json();
+
+        alert(result.message);
+
+        if (res.status === 201) {
+            window.location.href = "/login-page";
+        }
+
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Server error. Check console.");
+    }
+});
+
+</script>
 
 </body>
 

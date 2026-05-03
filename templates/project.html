@@ -208,6 +208,7 @@ li.active {
 
 <!-- ⚡ JS SAME (UNCHANGED) -->
 <script>
+const API = "https://team-task-manager-eu2p.onrender.com";
 
 const token = localStorage.getItem("token");
 
@@ -220,7 +221,7 @@ let selectedProjectId = null;
 let isAdmin = false;
 
 async function loadProjects() {
-    const res = await fetch("/projects", {
+    const res = await fetch(`${API}/projects`, {
         headers: { "Authorization": "Bearer " + token }
     });
 
@@ -251,7 +252,7 @@ document.getElementById("projectForm").addEventListener("submit", async (e) => {
 
     const name = document.getElementById("name").value;
 
-    await fetch("/projects", {
+    await fetch(`${API}/projects`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -270,7 +271,7 @@ function highlightSelected(selectedLi) {
 }
 
 async function loadTasks(projectId) {
-    const res = await fetch(`/tasks/${projectId}`, {
+    const res = await fetch(`${API}/tasks/${projectId}`, {
         headers: { "Authorization": "Bearer " + token }
     });
 
@@ -313,7 +314,7 @@ document.getElementById("taskForm").addEventListener("submit", async (e) => {
     const assigned_to = document.getElementById("assignUser").value;
     const due_date = document.getElementById("dueDate").value;
 
-    await fetch("/tasks", {
+    await fetch(`${API}/tasks`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -332,7 +333,7 @@ document.getElementById("taskForm").addEventListener("submit", async (e) => {
 });
 
 async function updateTask(id, status) {
-    await fetch(`/tasks/${id}`, {
+    await fetch(`${API}/tasks/${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -345,7 +346,7 @@ async function updateTask(id, status) {
 }
 
 async function deleteTask(id) {
-    await fetch(`/tasks/${id}`, {
+    await fetch(`${API}/tasks/${id}`, {
         method: "DELETE",
         headers: { "Authorization": "Bearer " + token }
     });
@@ -354,7 +355,7 @@ async function deleteTask(id) {
 }
 
 async function loadMembers(projectId) {
-    const res = await fetch(`/members/${projectId}`, {
+    const res = await fetch(`${API}/members/${projectId}`, {
         headers: { "Authorization": "Bearer " + token }
     });
 
@@ -381,7 +382,7 @@ document.getElementById("memberForm").addEventListener("submit", async (e) => {
 
     const email = document.getElementById("memberEmail").value;
 
-    await fetch("/add-member", {
+    await fetch(`${API}/add-member`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -397,7 +398,7 @@ document.getElementById("memberForm").addEventListener("submit", async (e) => {
 });
 
 async function removeMember(userId) {
-    await fetch("/remove-member", {
+    await fetch(`${API}/remove-member`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -413,7 +414,7 @@ async function removeMember(userId) {
 }
 
 async function loadMembersDropdown(projectId) {
-    const res = await fetch(`/members/${projectId}`, {
+    const res = await fetch(`${API}/members/${projectId}`, {
         headers: { "Authorization": "Bearer " + token }
     });
 
@@ -431,7 +432,7 @@ async function loadMembersDropdown(projectId) {
 }
 
 async function checkRole(projectId) {
-    const res = await fetch(`/members/${projectId}`, {
+    const res = await fetch(`${API}/members/${projectId}`, {
         headers: { "Authorization": "Bearer " + token }
     });
 

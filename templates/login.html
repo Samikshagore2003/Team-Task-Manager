@@ -107,34 +107,48 @@
         <p>Don't have an account? <a href="/signup-page">Signup</a></p>
     </div>
 
-    <script>
-        document.getElementById("loginForm").addEventListener("submit", async function (e) {
-            e.preventDefault();
+<script>
 
-            const data = {
-                email: document.getElementById("email").value,
-                password: document.getElementById("password").value
-            };
+const API = "https://team-task-manager-eu2p.onrender.com"; 
 
-            const res = await fetch("/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
-            });
+document.getElementById("loginForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-            const result = await res.json();
-            console.log("LOGIN RESPONSE:", result);
+    const data = {
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value
+    };
 
-            if (result.token) {
-                localStorage.setItem("token", result.token);
-                localStorage.setItem("role", result.role); // fixed
-                alert("Login successful");
-                window.location.href = "/projects-page";
-            } else {
-                alert(result.message);
-            }
+    try {
+        const res = await fetch(`${API}/login`, { 
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
         });
-    </script>
+
+        const result = await res.json();
+        console.log("LOGIN RESPONSE:", result);
+
+        if (result.token) {
+            localStorage.setItem("token", result.token);
+            localStorage.setItem("role", result.role);
+
+            alert("Login successful");
+
+            // 🔥 better redirect (Render compatible)
+            window.location.href = "/projects-page";
+
+        } else {
+            alert(result.message || "Login failed");
+        }
+
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Server error. Check console.");
+    }
+});
+
+</script>
 
 </body>
 
