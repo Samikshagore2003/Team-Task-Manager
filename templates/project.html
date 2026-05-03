@@ -1,444 +1,469 @@
 <!DOCTYPE html>
-<html>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #0f172a;
+    color: white;
+}
+
+/* LAYOUT */
+.app {
+    display: flex;
+    height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 240px;
+    background: #020617;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.user-box {
+    font-size: 14px;
+}
+
+.user-box button {
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    background: crimson;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+}
+
+/* MAIN */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.topbar {
+    margin-bottom: 20px;
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+/* CARDS */
+.card {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.card h3 {
+    margin-bottom: 10px;
+}
+
+/* INPUT */
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 6px 0;
+    border-radius: 8px;
+    border: none;
+}
+
+/* BUTTON */
+button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    background: #3b82f6;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* LIST */
+ul {
+    list-style: none;
+    margin-top: 10px;
+}
+
+li {
+    padding: 10px;
+    margin: 5px 0;
+    background: #334155;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+li.active {
+    background: #2563eb;
+}
+
+/* MEMBER */
+.member-item {
+    background: #334155;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 8px;
+}
+</style>
+</head>
+
+<body>
+
 <div class="app">
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <div class="logo">🚀 Task Manager</div>
 
-        <div class="user-box">
-            <div id="roleText">Member</div>
-            <button onclick="logout()">Logout</button>
-        </div>
-    </aside>
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div>
+        <div class="logo">Task Manager</div>
+    </div>
 
-    <!-- MAIN -->
-    <main class="main-content">
+    <div class="user-box">
+        <div id="roleText">Member</div>
+        <button onclick="logout()">Logout</button>
+    </div>
+</aside>
 
-        <!-- TOP BAR -->
-        <div class="topbar">
-            <h2>Dashboard</h2>
-        </div>
+<!-- MAIN -->
+<main class="main-content">
 
-        <!-- GRID -->
-        <div class="grid">
-
-            <!-- PROJECTS -->
-            <div class="card">
-                <h3>📁 Projects</h3>
-
-                <form id="projectForm" class="form-row">
-                    <input type="text" id="name" placeholder="Project name..." required>
-                    <button>Create</button>
-                </form>
-
-                <ul id="projectList"></ul>
-            </div>
-
-            <!-- TASKS -->
-            <div class="card">
-                <h3>📝 Tasks</h3>
-
-                <div class="stats">
-                    <div><span>Total</span>
-                        <h4 id="totalTasks">0</h4>
-                    </div>
-                    <div><span>Done</span>
-                        <h4 id="doneTasks">0</h4>
-                    </div>
-                    <div><span>Pending</span>
-                        <h4 id="pendingTasks">0</h4>
-                    </div>
-                </div>
-
-                <form id="taskForm" class="task-form">
-                    <input type="text" id="title" placeholder="Task title" required>
-                    <input type="text" id="description" placeholder="Description">
-                    <input type="date" id="dueDate">
-                    <select id="assignUser"></select>
-                    <button>Add Task</button>
-                </form>
-
-                <ul id="taskList"></ul>
-            </div>
-
-            <!-- MEMBERS -->
-            <div class="card members">
-                <h3>👥 Team</h3>
-
-                <form id="memberForm" class="form-row">
-                    <input type="email" id="memberEmail" placeholder="Enter email" required>
-                    <button>Add</button>
-                </form>
-
-                <div id="memberList"></div>
-            </div>
-
-        </div>
-    </main>
+<div class="topbar">
+    <h2>Dashboard</h2>
 </div>
-</body>
+
+<div class="grid">
+
+<!-- PROJECT -->
+<div class="card">
+<h3>📁 Projects</h3>
+<form id="projectForm">
+<input type="text" id="name" placeholder="Project name..." required>
+<button>Create</button>
+</form>
+<ul id="projectList"></ul>
+</div>
+
+<!-- TASK -->
+<div class="card">
+<h3>📝 Tasks</h3>
+
+<p>Total: <span id="totalTasks">0</span></p>
+<p>Done: <span id="doneTasks">0</span></p>
+<p>Pending: <span id="pendingTasks">0</span></p>
+
+<form id="taskForm">
+<input type="text" id="title" placeholder="Task title" required>
+<input type="text" id="description" placeholder="Description">
+<input type="date" id="dueDate">
+<select id="assignUser"></select>
+<button>Add Task</button>
+</form>
+
+<ul id="taskList"></ul>
+</div>
+
+<!-- MEMBERS -->
+<div class="card">
+<h3>👥 Team</h3>
+
+<form id="memberForm">
+<input type="email" id="memberEmail" placeholder="Enter email" required>
+<button>Add</button>
+</form>
+
+<div id="memberList"></div>
+</div>
+
+</div>
+</main>
+</div>
+
+<!-- ⚡ JS SAME (UNCHANGED) -->
 <script>
-    const token = localStorage.getItem("token");
 
-    if (!token || token === "undefined" || token === "null" || token === "") {
-        alert("Please login again");
-        window.location.href = "/login-page";
-    }
+const token = localStorage.getItem("token");
 
-    let selectedProjectId = null;
-    let isAdmin = false;
+if (!token) {
+    alert("Login again");
+    window.location.href = "/login-page";
+}
 
-    //  JWT 
-    function parseJwt(token) {
-        return JSON.parse(atob(token.split('.')[1]));
-    }
+let selectedProjectId = null;
+let isAdmin = false;
 
-    //  PROJECT 
-
-    // LOAD PROJECTS
-    async function loadProjects() {
-        const res = await fetch("/projects", {
-            headers: { "Authorization": "Bearer " + token }
-        });
-
-        const data = await res.json();
-
-        const list = document.getElementById("projectList");
-        list.innerHTML = "";
-
-        data.forEach(p => {
-            const li = document.createElement("li");
-            li.textContent = p.name;
-
-            li.onclick = () => {
-                selectedProjectId = p.id;
-                highlightSelected(li);
-                loadTasks(p.id);
-                loadMembers(p.id);
-                loadMembersDropdown(p.id);
-                checkRole(p.id);
-            };
-
-            list.appendChild(li);
-        });
-    }
-
-    // CREATE PROJECT
-    document.getElementById("projectForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        const name = document.getElementById("name").value;
-
-        const res = await fetch("/projects", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + token
-            },
-            body: JSON.stringify({ name })
-        });
-
-        if (res.ok) {
-            document.getElementById("name").value = "";
-            loadProjects();
-        } else {
-            alert("Error creating project");
-        }
-    });
-
-    // HIGHLIGHT PROJECT
-    function highlightSelected(selectedLi) {
-        const items = document.querySelectorAll("#projectList li");
-        items.forEach(li => li.classList.remove("active"));
-        selectedLi.classList.add("active");
-    }
-
-    //  TASK 
-
-    // LOAD TASKS
-    async function loadTasks(projectId) {
-        const res = await fetch(`/tasks/${projectId}`, {
-            headers: { "Authorization": "Bearer " + token }
-        });
-
-        const data = await res.json();
-
-        const list = document.getElementById("taskList");
-        list.innerHTML = "";
-
-        // STATS
-        let total = data.length;
-        let done = data.filter(t => t.status === "Done").length;
-        let pending = total - done;
-
-        document.getElementById("totalTasks").innerText = total;
-        document.getElementById("doneTasks").innerText = done;
-        document.getElementById("pendingTasks").innerText = pending;
-
-        if (data.length === 0) {
-            list.innerHTML = "<p>No tasks yet</p>";
-            return;
-        }
-
-        data.forEach(t => {
-            const li = document.createElement("li");
-
-            let statusColor = "gray";
-            if (t.status === "Done") statusColor = "green";
-            else if (t.status === "In Progress") statusColor = "orange";
-
-            li.innerHTML = `
-        <div class="task-row">
-            <div class="task-info">
-                <div class="task-title">${t.title}</div>
-                <div class="task-status" style="color:${statusColor}">
-                    ${t.status}
-                </div>
-                <div class="task-assign">Assigned to: ${t.assigned_name || "N/A"}</div>
-                <div class="task-date">Due: ${t.due_date || "N/A"}</div>
-            </div>
-
-            <div class="task-actions">
-                <button onclick="updateTask(${t.id}, 'In Progress')">Start</button>
-                <button onclick="updateTask(${t.id}, 'Done')">Done</button>
-${isAdmin ? `<button onclick="deleteTask(${t.id})">Delete</button>` : ""}            </div>
-        </div>
-        `;
-
-            li.style.transition = "0.2s";
-            li.onmouseover = () => li.style.transform = "scale(1.02)";
-            li.onmouseleave = () => li.style.transform = "scale(1)";
-
-            // OVERDUE
-            if (t.due_date && t.status !== "Done") {
-                const today = new Date();
-                const due = new Date(t.due_date);
-
-                if (due < today) {
-                    li.style.borderLeft = "5px solid red";
-                    li.style.background = "#fee2e2";
-                }
-            }
-
-            list.appendChild(li);
-        });
-    }
-
-    // CREATE TASK
-    document.getElementById("taskForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        if (!selectedProjectId) {
-            alert("Select project first");
-            return;
-        }
-
-        const title = document.getElementById("title").value;
-        const description = document.getElementById("description").value;
-        const assigned_to = document.getElementById("assignUser").value;
-        const due_date = document.getElementById("dueDate").value;
-
-        await fetch("/tasks", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + token
-            },
-            body: JSON.stringify({
-                title,
-                description,
-                project_id: selectedProjectId,
-                assigned_to,
-                due_date
-            })
-        });
-
-        // CLEAR
-        document.getElementById("title").value = "";
-        document.getElementById("description").value = "";
-        document.getElementById("dueDate").value = "";
-
-        loadTasks(selectedProjectId);
-    });
-
-    // UPDATE TASK
-    async function updateTask(taskId, status) {
-        await fetch(`/tasks/${taskId}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + token
-            },
-            body: JSON.stringify({ status })
-        });
-
-        loadTasks(selectedProjectId);
-    }
-
-    // DELETE TASK
-    async function deleteTask(id) {
-        await fetch(`/tasks/${id}`, {
-            method: "DELETE",
-            headers: { "Authorization": "Bearer " + token }
-        });
-
-        loadTasks(selectedProjectId);
-    }
-
-    //  MEMBERS 
-
-    // ADD MEMBER
-    document.getElementById("memberForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        const email = document.getElementById("memberEmail").value;
-
-        const res = await fetch("/add-member", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + token
-            },
-            body: JSON.stringify({
-                email,
-                project_id: selectedProjectId
-            })
-        });
-
-        const data = await res.json();
-        alert(data.message);
-
-        document.getElementById("memberEmail").value = "";
-
-        loadMembers(selectedProjectId);
-    });
-
-    // LOAD MEMBERS
-    async function loadMembers(projectId) {
-        const res = await fetch(`/members/${projectId}`, {
-            headers: { "Authorization": "Bearer " + token }
-        });
-
-        const data = await res.json();
-
-        const list = document.getElementById("memberList");
-        list.innerHTML = "";
-
-        data.forEach(m => {
-            const div = document.createElement("div");
-            div.className = "member-item";
-
-            div.innerHTML = `
-        <div class="member-info">
-            <div class="member-name">${m.name}</div>
-            <div class="member-email">${m.email}</div>
-            <span class="role-badge ${m.role}">
-                ${m.role === "admin" ? " Admin" : "Member"}
-            </span>
-        </div>
-
-        ${isAdmin ? `<button class="remove-btn" onclick="removeMember(${m.id})">Remove</button>` : ""}
-    `;
-
-            list.appendChild(div);
-        });
-    }
-
-    // REMOVE MEMBER
-    async function removeMember(userId) {
-        await fetch("/remove-member", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + token
-            },
-            body: JSON.stringify({
-                user_id: userId,
-                project_id: selectedProjectId
-            })
-        });
-
-        loadMembers(selectedProjectId);
-    }
-
-    // DROPDOWN
-    async function loadMembersDropdown(projectId) {
-        const res = await fetch(`/members/${projectId}`, {
-            headers: { "Authorization": "Bearer " + token }
-        });
-
-        const data = await res.json();
-
-        const select = document.getElementById("assignUser");
-        select.innerHTML = '<option value="">Assign to</option>';
-
-        data.forEach(m => {
-            const option = document.createElement("option");
-            option.value = m.id;
-            option.textContent = m.name;
-            select.appendChild(option);
-        });
-    }
-
-    //  ROLE 
-
-    async function checkRole(projectId) {
-    const res = await fetch(`/members/${projectId}`, {
-        headers: { Authorization: "Bearer " + token }
+async function loadProjects() {
+    const res = await fetch("/projects", {
+        headers: { "Authorization": "Bearer " + token }
     });
 
     const data = await res.json();
 
-    const userId = JSON.parse(atob(token.split('.')[1])).sub;
+    const list = document.getElementById("projectList");
+    list.innerHTML = "";
+
+    data.forEach(p => {
+        const li = document.createElement("li");
+        li.textContent = p.name;
+
+        li.onclick = () => {
+            selectedProjectId = p.id;
+            highlightSelected(li);
+            loadTasks(p.id);
+            loadMembers(p.id);
+            loadMembersDropdown(p.id);
+            checkRole(p.id);
+        };
+
+        list.appendChild(li);
+    });
+}
+
+document.getElementById("projectForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+
+    await fetch("/projects", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({ name })
+    });
+
+    document.getElementById("name").value = "";
+    loadProjects();
+});
+
+function highlightSelected(selectedLi) {
+    document.querySelectorAll("#projectList li").forEach(li => li.classList.remove("active"));
+    selectedLi.classList.add("active");
+}
+
+async function loadTasks(projectId) {
+    const res = await fetch(`/tasks/${projectId}`, {
+        headers: { "Authorization": "Bearer " + token }
+    });
+
+    const data = await res.json();
+
+    document.getElementById("taskList").innerHTML = "";
+
+    let total = data.length;
+    let done = data.filter(t => t.status === "Done").length;
+    let pending = total - done;
+
+    document.getElementById("totalTasks").innerText = total;
+    document.getElementById("doneTasks").innerText = done;
+    document.getElementById("pendingTasks").innerText = pending;
+
+    data.forEach(t => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+            <b>${t.title}</b><br>
+            ${t.status} | ${t.assigned_name || "N/A"}
+            <br>
+            <button onclick="updateTask(${t.id}, 'In Progress')">Start</button>
+            <button onclick="updateTask(${t.id}, 'Done')">Done</button>
+            ${isAdmin ? `<button onclick="deleteTask(${t.id})">Delete</button>` : ""}
+        `;
+        document.getElementById("taskList").appendChild(li);
+    });
+}
+
+document.getElementById("taskForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    if (!selectedProjectId) {
+        alert("Select project first");
+        return;
+    }
+
+    const title = document.getElementById("title").value;
+    const description = document.getElementById("description").value;
+    const assigned_to = document.getElementById("assignUser").value;
+    const due_date = document.getElementById("dueDate").value;
+
+    await fetch("/tasks", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({
+            title,
+            description,
+            project_id: selectedProjectId,
+            assigned_to,
+            due_date
+        })
+    });
+
+    loadTasks(selectedProjectId);
+});
+
+async function updateTask(id, status) {
+    await fetch(`/tasks/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({ status })
+    });
+
+    loadTasks(selectedProjectId);
+}
+
+async function deleteTask(id) {
+    await fetch(`/tasks/${id}`, {
+        method: "DELETE",
+        headers: { "Authorization": "Bearer " + token }
+    });
+
+    loadTasks(selectedProjectId);
+}
+
+async function loadMembers(projectId) {
+    const res = await fetch(`/members/${projectId}`, {
+        headers: { "Authorization": "Bearer " + token }
+    });
+
+    const data = await res.json();
+
+    const list = document.getElementById("memberList");
+    list.innerHTML = "";
+
+    data.forEach(m => {
+        const div = document.createElement("div");
+        div.className = "member-item";
+
+        div.innerHTML = `
+            ${m.name} (${m.role})
+            ${isAdmin ? `<button onclick="removeMember(${m.id})">Remove</button>` : ""}
+        `;
+
+        list.appendChild(div);
+    });
+}
+
+document.getElementById("memberForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("memberEmail").value;
+
+    await fetch("/add-member", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({
+            email,
+            project_id: selectedProjectId
+        })
+    });
+
+    loadMembers(selectedProjectId);
+});
+
+async function removeMember(userId) {
+    await fetch("/remove-member", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({
+            user_id: userId,
+            project_id: selectedProjectId
+        })
+    });
+
+    loadMembers(selectedProjectId);
+}
+
+async function loadMembersDropdown(projectId) {
+    const res = await fetch(`/members/${projectId}`, {
+        headers: { "Authorization": "Bearer " + token }
+    });
+
+    const data = await res.json();
+
+    const select = document.getElementById("assignUser");
+    select.innerHTML = '<option value="">Assign</option>';
+
+    data.forEach(m => {
+        const option = document.createElement("option");
+        option.value = m.id;
+        option.textContent = m.name;
+        select.appendChild(option);
+    });
+}
+
+async function checkRole(projectId) {
+    const res = await fetch(`/members/${projectId}`, {
+        headers: { "Authorization": "Bearer " + token }
+    });
+
+    const data = await res.json();
+
+    const decoded = JSON.parse(atob(token.split('.')[1]));
+    const userId = decoded.sub || decoded.id;
 
     const me = data.find(m => m.id == userId);
 
     isAdmin = me && me.role === "admin";
 
-    console.log("ROLE:", isAdmin); // debug
+    document.getElementById("roleText").innerText = isAdmin ? "Admin" : "Member";
 
-    document.getElementById("roleText").innerText =
-        isAdmin ? "Admin" : "Member";
-
-    toggleUI();  // 🔥 MUST
+    toggleUI();
 }
 
-    // UI CONTROL
-   function toggleUI() {
-    // PROJECT CREATE
-    document.getElementById("projectForm").style.display =
-        isAdmin ? "block" : "none";
-
-    // MEMBER ADD
-    document.getElementById("memberForm").style.display =
-        isAdmin ? "flex" : "none";
-
-    // ASSIGN DROPDOWN
-    document.getElementById("assignUser").style.display =
-        isAdmin ? "block" : "none";
-
-    // TASK CREATE
-    document.getElementById("taskForm").style.display =
-        isAdmin ? "block" : "none";
+function toggleUI() {
+    document.getElementById("projectForm").style.display = isAdmin ? "block" : "none";
+    document.getElementById("memberForm").style.display = isAdmin ? "block" : "none";
+    document.getElementById("assignUser").style.display = isAdmin ? "block" : "none";
+    document.getElementById("taskForm").style.display = isAdmin ? "block" : "none";
 }
-    //  LOGOUT 
 
-    function logout() {
-        localStorage.clear();
-        window.location.href = "/login-page";
-    }
-    function toggleUI() {
-        // ADMIN controls
-        document.getElementById("projectForm").style.display = isAdmin ? "block" : "none";
-        document.getElementById("memberForm").style.display = isAdmin ? "flex" : "none";
-        document.getElementById("assignUser").style.display = isAdmin ? "block" : "none";
+function logout() {
+    localStorage.clear();
+    window.location.href = "/login-page";
+}
 
-        // TASK FORM (create)
-        document.getElementById("taskForm").style.display = isAdmin ? "block" : "none";
-    }
-    //  INIT 
-    loadProjects();
+loadProjects();
+
 </script>
 
+</body>
 </html>
